@@ -13,6 +13,8 @@ class Loginpage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            CircleAvatar(child: Image.asset("asset\profile.jpg"), radius: 80),
+
             Text(
               "Login Screen",
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
