@@ -102,6 +102,7 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
                         Text(
                           widget.fruit.name,
                           style: TextStyle(
+                            fontFamily: "NotoSans",
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
                           ),

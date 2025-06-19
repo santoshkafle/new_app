@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/main_nav_page.dart';
 import 'package:new_app/pageview/gridview_page.dart';
 import 'package:new_app/pageview/homepage.dart';
 import 'package:new_app/pageview/loginpage.dart';
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'NotoSans',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: GridviewPage(),
+      home: MainNavPage(),
     );
   }
 }
