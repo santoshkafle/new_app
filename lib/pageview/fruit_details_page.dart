@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:new_app/model/cart_details_data.dart';
+import 'package:new_app/model/cartdetails_model.dart';
 import 'package:new_app/model/fruitmodel.dart';
 import 'package:new_app/widgets/white_button.dart';
 
@@ -13,8 +15,7 @@ class FruitDetailsPage extends StatefulWidget {
 
 class _FruitDetailsPageState extends State<FruitDetailsPage> {
   int fruitQuantity = 1;
-  int fruitAdd = 0;
-  bool isFruitAdd = false;
+  bool isFavroite = false;
 
   void IncreaseQuantity() {
     if (fruitQuantity < widget.fruit.maxAvailable) {
@@ -25,30 +26,73 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
   }
 
   void DecreaseQuantity() {
-    if (fruitQuantity > 1) {
+    if (fruitQuantity > 0) {
       setState(() {
         fruitQuantity--;
       });
     }
   }
 
-  void AddToCart() {
+  void ToggleFavroite() {
     setState(() {
-      if (!isFruitAdd) {
-        fruitAdd = fruitQuantity;
-        isFruitAdd = true;
+      isFavroite = !isFavroite;
+      if (isFavroite) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Item added to favourites'),
+            backgroundColor: Colors.blue,
+            duration: Duration(milliseconds: 1000),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       } else {
-        fruitAdd = 0;
-        isFruitAdd = false;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Item removed from favourites'),
+            backgroundColor: Colors.red,
+            duration: Duration(milliseconds: 1000),
+
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    fruitAdd = 0;
-    isFruitAdd = false;
+  void AddToCart() {
+    setState(() {
+      bool isFruitExist = false;
+
+      for (var e in cartdetails) {
+        if (e.name == widget.fruit.name) {
+          //this fruit is exist... just update.....
+          e.quantity += fruitQuantity;
+          e.totalPrice += fruitQuantity * widget.fruit.price;
+
+          isFruitExist = true;
+        }
+      }
+      //fruit not in cart...
+      if (!isFruitExist) {
+        cartdetails.add(
+          CartdetailsModel(
+            name: widget.fruit.name,
+            imageUrl: widget.fruit.imageUrl,
+            totalPrice: fruitQuantity * widget.fruit.price,
+            quantity: fruitQuantity,
+            fruitUnit: widget.fruit.fruitUnit,
+          ),
+        );
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Fruit Add, View Cart for more Details"),
+          backgroundColor: Colors.blue,
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(milliseconds: 1000),
+        ),
+      );
+    });
   }
 
   @override
@@ -91,10 +135,20 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
                                 color: Colors.green,
                               ),
                             ),
-                            Icon(
-                              Icons.favorite_outline,
-                              size: 26,
-                              color: Colors.red,
+                            IconButton(
+                              onPressed: () => ToggleFavroite(),
+                              icon:
+                                  isFavroite
+                                      ? Icon(
+                                        Icons.favorite,
+                                        size: 26,
+                                        color: Colors.red,
+                                      )
+                                      : Icon(
+                                        Icons.favorite_outline,
+                                        size: 26,
+                                        color: Colors.red,
+                                      ),
                             ),
                           ],
                         ),
@@ -206,7 +260,7 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
                       AddToCart();
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isFruitAdd ? Colors.red : Colors.green,
+                      backgroundColor: Colors.green,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -215,22 +269,13 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
                     child: Row(
                       children: [
                         Expanded(
-                          child:
-                              (isFruitAdd)
-                                  ? Text(
-                                    "Canceled ${widget.fruit.name} (${fruitAdd}${widget.fruit.fruitUnit})",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                  : Text(
-                                    "Add To Cart",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                          child: Text(
+                            "Add To Cart",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
-                        isFruitAdd
-                            ? Icon(Icons.delete, color: Colors.white)
-                            : Icon(Icons.shop, color: Colors.white),
+                        Icon(Icons.shop, color: Colors.white),
                       ],
                     ),
                   ),

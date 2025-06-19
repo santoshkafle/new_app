@@ -15,7 +15,7 @@ class _GridviewPageState extends State<GridviewPage> {
   final fruitList = [
     Fruitmodel(
       name: 'Apple',
-      price: '200',
+      price: 200,
       imageUrl: Fruitpath.appleUrl,
       rating: 4.5,
       fruitUnit: "kg",
@@ -25,7 +25,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Banana',
-      price: '60',
+      price: 60,
       imageUrl: Fruitpath.bananaUrl,
       rating: 3.5,
       fruitUnit: "bunch",
@@ -35,7 +35,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Coconut',
-      price: '70',
+      price: 70,
       imageUrl: Fruitpath.coconutUrl,
       rating: 3,
       fruitUnit: "piece",
@@ -45,7 +45,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Watermelon',
-      price: '300',
+      price: 300,
       imageUrl: Fruitpath.watermelonUrl,
       rating: 4,
       fruitUnit: "piece",
@@ -55,7 +55,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Strawberry',
-      price: '500',
+      price: 500,
       imageUrl: Fruitpath.strawberryUrl,
       rating: 4.5,
       fruitUnit: "kg",
@@ -65,7 +65,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Grapes',
-      price: '80',
+      price: 80,
       imageUrl: Fruitpath.grapesUrl,
       rating: 5,
       fruitUnit: "bunch",
@@ -75,7 +75,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Avocardo',
-      price: '1000',
+      price: 1000,
       imageUrl: Fruitpath.avocardoUrl,
       rating: 1.5,
       fruitUnit: "kg",
@@ -85,7 +85,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Mango',
-      price: '170',
+      price: 170,
       imageUrl: Fruitpath.mangoUrl,
       rating: 2.5,
       fruitUnit: "kg",
@@ -95,7 +95,7 @@ class _GridviewPageState extends State<GridviewPage> {
     ),
     Fruitmodel(
       name: 'Lichi',
-      price: '250',
+      price: 250,
       imageUrl: Fruitpath.lichiUrl,
       rating: 2,
       fruitUnit: "bunch",
@@ -127,7 +127,7 @@ class _GridviewPageState extends State<GridviewPage> {
                       e.name.toLowerCase().contains(
                         searchIteam.toLowerCase(),
                       ) ||
-                      e.price.contains(searchIteam),
+                      e.price.toString().contains(searchIteam),
                 )
                 .toList();
       });

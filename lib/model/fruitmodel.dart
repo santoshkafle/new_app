@@ -1,6 +1,6 @@
 class Fruitmodel {
   final String name;
-  final String price;
+  final int price;
   final String imageUrl;
   final double rating;
   final String description;
