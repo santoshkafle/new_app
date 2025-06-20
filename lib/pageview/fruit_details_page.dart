@@ -258,6 +258,9 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       AddToCart();
+                      for (var e in cartdetails) {
+                        totalPriceForAllFruit += e.totalPrice;
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
