@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/main_nav_page.dart';
-import 'package:new_app/pageview/gridview_page.dart';
-import 'package:new_app/pageview/homepage.dart';
-import 'package:new_app/pageview/loginpage.dart';
-import 'package:new_app/pageview/registerpage.dart';
+import 'package:new_app/provider/cart_provider.dart';
+import 'package:new_app/provider/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 //hello
 

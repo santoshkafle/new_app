@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:new_app/model/cart_details_data.dart';
+import 'package:new_app/provider/cart_provider.dart';
 import 'package:new_app/model/cartdetails_model.dart';
 import 'package:new_app/model/fruitmodel.dart';
+import 'package:new_app/provider/favorite_provider.dart';
 import 'package:new_app/widgets/white_button.dart';
+import 'package:provider/provider.dart';
 
 class FruitDetailsPage extends StatefulWidget {
   final Fruitmodel fruit;
@@ -34,56 +36,42 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
   }
 
   void ToggleFavroite() {
-    setState(() {
-      isFavroite = !isFavroite;
-      if (isFavroite) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Item added to favourites'),
-            backgroundColor: Colors.blue,
-            duration: Duration(milliseconds: 1000),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Item removed from favourites'),
-            backgroundColor: Colors.red,
-            duration: Duration(milliseconds: 1000),
+    if (!context.read<FavoriteProvider>().IsFavorite(widget.fruit.name)) {
+      context.read<FavoriteProvider>().addFavoriteItem(widget.fruit.name);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Item added to favourites'),
+          backgroundColor: Colors.blue,
+          duration: Duration(milliseconds: 1000),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else {
+      context.read<FavoriteProvider>().removeFavoriteFromLast();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Item removed from favourites'),
+          backgroundColor: Colors.red,
+          duration: Duration(milliseconds: 1000),
 
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
-    });
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   void AddToCart() {
     setState(() {
-      bool isFruitExist = false;
+      context.read<CartProvider>().addCartItems(
+        CartdetailsModel(
+          fruitUnit: widget.fruit.fruitUnit,
+          name: widget.fruit.name,
+          imageUrl: widget.fruit.imageUrl,
+          totalPrice: widget.fruit.price,
+          quantity: fruitQuantity,
+        ),
+      );
 
-      for (var e in cartdetails) {
-        if (e.name == widget.fruit.name) {
-          //this fruit is exist... just update.....
-          e.quantity += fruitQuantity;
-          e.totalPrice += fruitQuantity * widget.fruit.price;
-
-          isFruitExist = true;
-        }
-      }
-      //fruit not in cart...
-      if (!isFruitExist) {
-        cartdetails.add(
-          CartdetailsModel(
-            name: widget.fruit.name,
-            imageUrl: widget.fruit.imageUrl,
-            totalPrice: fruitQuantity * widget.fruit.price,
-            quantity: fruitQuantity,
-            fruitUnit: widget.fruit.fruitUnit,
-          ),
-        );
-      }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Fruit Add, View Cart for more Details"),
@@ -138,7 +126,9 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
                             IconButton(
                               onPressed: () => ToggleFavroite(),
                               icon:
-                                  isFavroite
+                                  context.watch<FavoriteProvider>().IsFavorite(
+                                        widget.fruit.name,
+                                      )
                                       ? Icon(
                                         Icons.favorite,
                                         size: 26,
@@ -258,9 +248,6 @@ class _FruitDetailsPageState extends State<FruitDetailsPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       AddToCart();
-                      for (var e in cartdetails) {
-                        totalPriceForAllFruit += e.totalPrice;
-                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

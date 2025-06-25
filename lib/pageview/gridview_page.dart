@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/model/fruitmodel.dart';
-import 'package:new_app/model/fruitpath.dart';
-import 'package:new_app/pageview/fruit_details_page.dart';
+import 'package:new_app/utils/fruitpath.dart';
+import 'package:new_app/view/fruit_details_page.dart';
 import 'package:new_app/widgets/search_bar_widget.dart';
 
 class GridviewPage extends StatefulWidget {
