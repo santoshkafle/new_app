@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/provider/favorite_provider.dart';
+import 'package:new_app/view/delete_alertbox_page.dart';
 import 'package:provider/provider.dart';
 
 class FavoritePage extends StatelessWidget {
@@ -14,7 +15,10 @@ class FavoritePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              context.read<FavoriteProvider>().RemoveAllFavorite();
+              showDialog(
+                context: context,
+                builder: (context) => DeleteAlertboxPage(),
+              );
             },
             icon: Icon(Icons.delete_sweep_outlined),
           ),
