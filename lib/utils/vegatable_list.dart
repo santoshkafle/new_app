@@ -1,0 +1,88 @@
+import 'package:new_app/model/vegatable_model.dart';
+import 'package:new_app/utils/vegatablepath.dart';
+
+class VegatableList {
+  static final vegatableList = [
+    VegatableModel(
+      name: "Broccoli",
+      imageUrl: Vegatablepath.broccoliPath,
+      description: "No Des Available",
+      maxAvailable: 50,
+      price: 80,
+      rating: 4,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Cabbage",
+      imageUrl: Vegatablepath.cabbagePath,
+      description: "No Des Available",
+      maxAvailable: 80,
+      price: 75,
+      rating: 4,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Carrot",
+      imageUrl: Vegatablepath.carrotPath,
+      description: "No Des Available",
+      maxAvailable: 20,
+      price: 50,
+      rating: 3.5,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Baighun",
+      imageUrl: Vegatablepath.baighunPath,
+      description: "No Des Available",
+      maxAvailable: 50,
+      price: 60,
+      rating: 1.5,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Mushroom",
+      imageUrl: Vegatablepath.mushroomPath,
+      description: "No Des Available",
+      maxAvailable: 50,
+      price: 120,
+      rating: 5,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Pea",
+      imageUrl: Vegatablepath.peaPath,
+      description: "No Des Available",
+      maxAvailable: 50,
+      price: 40,
+      rating: 4.5,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Potato",
+      imageUrl: Vegatablepath.potatoPath,
+      description: "No Des Available",
+      maxAvailable: 50,
+      price: 90,
+      rating: 4.5,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Pumpkin",
+      imageUrl: Vegatablepath.pumpkinPath,
+      description: "No Des Available",
+      maxAvailable: 10,
+      price: 40,
+      rating: 3.5,
+      vegUnit: "Kg",
+    ),
+    VegatableModel(
+      name: "Sagg",
+      imageUrl: Vegatablepath.saggPath,
+      description: "No Des Available",
+      maxAvailable: 50,
+      price: 40,
+      rating: 4,
+      vegUnit: "Kg",
+    ),
+  ];
+}
