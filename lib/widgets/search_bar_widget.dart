@@ -15,7 +15,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   Widget build(BuildContext context) {
     return SearchBar(
       controller: searchController,
-      hintText: "Search Fruits...",
+      hintText: "Search...",
       onChanged: (value) {
         //somethings.....
         widget.onSearch(value);

@@ -3,6 +3,8 @@ import 'package:new_app/pageview/cart_page.dart';
 import 'package:new_app/pageview/gridview_page.dart';
 import 'package:new_app/pageview/homepage.dart';
 import 'package:new_app/pageview/profile_page.dart';
+import 'package:new_app/provider/navigation_provider.dart';
+import 'package:provider/provider.dart';
 
 class MainNavPage extends StatefulWidget {
   const MainNavPage({super.key});
@@ -12,8 +14,6 @@ class MainNavPage extends StatefulWidget {
 }
 
 class _MainNavPageState extends State<MainNavPage> {
-  int currentPage = 0;
-
   final page = [Homepage(), GridviewPage(), CartPage(), ProfilePage()];
 
   final bootomNavIteam = <BottomNavigationBarItem>[
@@ -29,22 +29,17 @@ class _MainNavPageState extends State<MainNavPage> {
     BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Profile"),
   ];
 
-  triggerPage(int index) {
-    setState(() {
-      currentPage = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _index = context.watch<NavigationProvider>();
     return Scaffold(
-      body: page[currentPage],
+      body: page[_index.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: bootomNavIteam,
-        currentIndex: currentPage,
+        currentIndex: _index.currentIndex,
         selectedItemColor: Colors.grey[700],
         unselectedItemColor: Colors.grey[400],
-        onTap: triggerPage,
+        onTap: context.read<NavigationProvider>().setCurrentIndex,
       ),
     );
   }

@@ -39,7 +39,7 @@ class ProfilePage extends StatelessWidget {
                     radius: 20,
                     backgroundColor: Colors.blue,
                     child: Image.asset(
-                      "assest/facebook-circle-logo.png",
+                      "assest/media/facebook-circle-logo.png",
                       color: Colors.white,
                       width: 32,
                       height: 32,
@@ -50,7 +50,7 @@ class ProfilePage extends StatelessWidget {
                     radius: 20,
                     backgroundColor: Colors.pinkAccent,
                     child: Image.asset(
-                      "assest/instgramlogo.png",
+                      "assest/media/instgramlogo.png",
                       color: Colors.white,
                       width: 26,
                       height: 26,
@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
                     radius: 20,
                     backgroundColor: Colors.black,
                     child: Image.asset(
-                      "assest/twittericon.png",
+                      "assest/media/twittericon.png",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -70,7 +70,7 @@ class ProfilePage extends StatelessWidget {
                     radius: 20,
                     backgroundColor: Colors.red[300],
                     child: Image.asset(
-                      "assest/yticon.png",
+                      "assest/media/yticon.png",
                       fit: BoxFit.cover,
                       width: 32,
                       height: 32,
