@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/model/fruitmodel.dart';
 import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/provider/navigation_provider.dart';
 import 'package:new_app/utils/fruit_list.dart';
@@ -94,6 +95,7 @@ class Homepage extends StatelessWidget {
                     GroceryListState.vegatalbe,
                   );
                   ctx.read<NavigationProvider>().setCurrentIndex(1);
+                  ctx.read<NavigationProvider>().setCurrentGroceryTabIndex(1);
                 },
                 child: Text("See All"),
               ),
@@ -124,6 +126,7 @@ class Homepage extends StatelessWidget {
                     GroceryListState.fruit,
                   );
                   ctx.read<NavigationProvider>().setCurrentIndex(1);
+                  ctx.read<NavigationProvider>().setCurrentGroceryTabIndex(0);
                 },
                 child: Text("See All"),
               ),
@@ -154,6 +157,9 @@ class Homepage extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: InkWell(
               onTap: () {
+                context.read<GroceryListProvider>().swithGroceryListState(
+                  GroceryListState.fruit,
+                );
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -202,14 +208,18 @@ class Homepage extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: InkWell(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder:
-                //         (context) =>
-                //             FruitDetailsPage(fruit: VegatableList.vegatableList[index]),
-                //   ),
-                // );
+                context.read<GroceryListProvider>().swithGroceryListState(
+                  GroceryListState.vegatalbe,
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) => FruitDetailsPage(
+                          vegatable: VegatableList.vegatableList[index],
+                        ),
+                  ),
+                );
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

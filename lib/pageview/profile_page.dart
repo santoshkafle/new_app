@@ -3,135 +3,236 @@ import 'package:flutter/material.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
+  Widget _profileButtonsRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 8,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+          child: Text(
+            "Subscribe",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+          child: Text(
+            "Message",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _personLikeNDShareSection() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        //first child... of like & share section...
+        Row(
+          children: [
+            Icon(Icons.heart_broken_outlined),
+            Text("60.4k", style: TextStyle(fontSize: 14)),
+          ],
+        ),
+        SizedBox(height: 16, child: VerticalDivider(width: 18)),
+        Row(
+          children: [
+            Icon(Icons.message_outlined),
+            Text("20k", style: TextStyle(fontSize: 14)),
+          ],
+        ),
+        SizedBox(height: 16, child: VerticalDivider(width: 18)),
+        Row(
+          children: [
+            Icon(Icons.share_outlined),
+            Text("12.4k", style: TextStyle(fontSize: 14)),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _accountSection(BuildContext ctx) {
+    return Container(
+      width: MediaQuery.sizeOf(ctx).width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 1,
+            spreadRadius: 1.3,
+            offset: Offset(0, 1.5),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          spacing: 7,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "My Account",
+              style: TextStyle(fontSize: 17, color: Colors.grey),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  spacing: 5,
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      child: Icon(Icons.person_outline, size: 18),
+                    ),
+                    Text(
+                      "Personal Information",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Icon(Icons.keyboard_arrow_right),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  spacing: 5,
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      child: Icon(Icons.settings, size: 18),
+                    ),
+                    Text(
+                      "Settings",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Icon(Icons.keyboard_arrow_right),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _moreSection(BuildContext ctx) {
+    return Container(
+      width: MediaQuery.sizeOf(ctx).width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 1,
+            spreadRadius: 1.3,
+            offset: Offset(0, 1.5),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          spacing: 7,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("More", style: TextStyle(fontSize: 17, color: Colors.grey)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  spacing: 5,
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      child: Icon(Icons.switch_account, size: 18),
+                    ),
+                    Text(
+                      "Switch Account",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Icon(Icons.keyboard_arrow_right),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  spacing: 5,
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      child: Icon(Icons.exit_to_app, size: 18),
+                    ),
+                    Text(
+                      "Logout",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Icon(Icons.keyboard_arrow_right),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Profile"), centerTitle: true),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(12),
-          margin: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.grey[400],
-            borderRadius: BorderRadius.circular(22),
-          ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            spacing: 12,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            spacing: 5,
             children: [
+              SizedBox(height: 25),
               CircleAvatar(radius: 60, child: Icon(Icons.person, size: 80)),
               Text(
-                "CodingLab",
+                "Santosh Kafle",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              Text(
-                "YouTuber & Blogger",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
-              ),
-              //media links here....
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 8,
-                children: [
-                  // facebook logo...
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.blue,
-                    child: Image.asset(
-                      "assest/media/facebook-circle-logo.png",
-                      color: Colors.white,
-                      width: 32,
-                      height: 32,
-                    ),
-                  ),
-                  // insta logo...
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.pinkAccent,
-                    child: Image.asset(
-                      "assest/media/instgramlogo.png",
-                      color: Colors.white,
-                      width: 26,
-                      height: 26,
-                    ),
-                  ),
-                  // twitter logo...
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.black,
-                    child: Image.asset(
-                      "assest/media/twittericon.png",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  // yt logo...
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.red[300],
-                    child: Image.asset(
-                      "assest/media/yticon.png",
-                      fit: BoxFit.cover,
-                      width: 32,
-                      height: 32,
-                    ),
-                  ),
-                ],
-              ),
+              Text("santoshkafle@gmail.com", style: TextStyle(fontSize: 14)),
               //buttons here.....
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 8,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: Text(
-                      "Subscribe",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                    ),
-                    child: Text(
-                      "Message",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                  ),
-                ],
-              ),
+              _profileButtonsRow(),
               //like & share section here....
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //first child... of like & share section...
-                  Row(
-                    children: [
-                      Icon(Icons.heart_broken_outlined),
-                      Text("60.4k", style: TextStyle(fontSize: 14)),
-                    ],
-                  ),
-                  SizedBox(height: 16, child: VerticalDivider(width: 18)),
-                  Row(
-                    children: [
-                      Icon(Icons.message_outlined),
-                      Text("20k", style: TextStyle(fontSize: 14)),
-                    ],
-                  ),
-                  SizedBox(height: 16, child: VerticalDivider(width: 18)),
-                  Row(
-                    children: [
-                      Icon(Icons.share_outlined),
-                      Text("12.4k", style: TextStyle(fontSize: 14)),
-                    ],
-                  ),
-                ],
-              ),
+              _personLikeNDShareSection(),
+              SizedBox(height: 12),
+              //section 2... 2  Buttons here....
+              _accountSection(context),
+              SizedBox(height: 5),
+
+              //section 2... 2  Buttons here....
+              _moreSection(context),
             ],
           ),
         ),
