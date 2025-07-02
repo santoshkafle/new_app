@@ -8,16 +8,16 @@ import 'package:new_app/view/child_fruit_details_page.dart';
 import 'package:new_app/view/child_vegatable_details_page.dart';
 import 'package:provider/provider.dart';
 
-class FruitDetailsPage extends StatefulWidget {
+class GroceryDetailsPage extends StatefulWidget {
   final Fruitmodel? fruit;
   final VegatableModel? vegatable;
-  const FruitDetailsPage({this.fruit, this.vegatable});
+  const GroceryDetailsPage({this.fruit, this.vegatable});
 
   @override
-  State<FruitDetailsPage> createState() => _FruitDetailsPageState();
+  State<GroceryDetailsPage> createState() => _FruitDetailsPageState();
 }
 
-class _FruitDetailsPageState extends State<FruitDetailsPage> {
+class _FruitDetailsPageState extends State<GroceryDetailsPage> {
   int fruitQuantity = 1;
   bool isFavroite = false;
 

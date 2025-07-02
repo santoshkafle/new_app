@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:new_app/model/fruitmodel.dart';
 import 'package:new_app/model/vegatable_model.dart';
 import 'package:new_app/provider/favorite_provider.dart';
 import 'package:new_app/utils/toggleFavroite.dart';

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/provider/form_provider.dart';
+import 'package:new_app/view/logout_alertbox.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -176,27 +179,35 @@ class ProfilePage extends StatelessWidget {
                 Icon(Icons.keyboard_arrow_right),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  spacing: 5,
-                  children: [
-                    CircleAvatar(
-                      radius: 18,
-                      child: Icon(Icons.exit_to_app, size: 18),
-                    ),
-                    Text(
-                      "Logout",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
+            InkWell(
+              onTap: () {
+                showDialog(
+                  context: ctx,
+                  builder: (context) => LogoutAlertbox(),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    spacing: 5,
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        child: Icon(Icons.exit_to_app, size: 18),
                       ),
-                    ),
-                  ],
-                ),
-                Icon(Icons.keyboard_arrow_right),
-              ],
+                      Text(
+                        "Logout",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Icon(Icons.keyboard_arrow_right),
+                ],
+              ),
             ),
           ],
         ),
@@ -206,6 +217,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userData = context.watch<FormProvider>();
     return Scaffold(
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -218,10 +230,10 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: 25),
               CircleAvatar(radius: 60, child: Icon(Icons.person, size: 80)),
               Text(
-                "Santosh Kafle",
+                _userData.userModel!.userName,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              Text("santoshkafle@gmail.com", style: TextStyle(fontSize: 14)),
+              Text(_userData.userModel!.email, style: TextStyle(fontSize: 14)),
               //buttons here.....
               _profileButtonsRow(),
               //like & share section here....

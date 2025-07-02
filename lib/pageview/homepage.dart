@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:new_app/model/fruitmodel.dart';
 import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/provider/navigation_provider.dart';
 import 'package:new_app/utils/fruit_list.dart';
 import 'package:new_app/utils/vegatable_list.dart';
-import 'package:new_app/view/fruit_details_page.dart';
+import 'package:new_app/view/grocery_details_page.dart';
 import 'package:provider/provider.dart';
 
 class Homepage extends StatelessWidget {
@@ -164,8 +163,9 @@ class Homepage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder:
-                        (context) =>
-                            FruitDetailsPage(fruit: FruitList.fruitList[index]),
+                        (context) => GroceryDetailsPage(
+                          fruit: FruitList.fruitList[index],
+                        ),
                   ),
                 );
               },
@@ -215,7 +215,7 @@ class Homepage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder:
-                        (context) => FruitDetailsPage(
+                        (context) => GroceryDetailsPage(
                           vegatable: VegatableList.vegatableList[index],
                         ),
                   ),

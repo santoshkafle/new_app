@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/provider/navigation_provider.dart';
-import 'package:new_app/view/fruit_details_page.dart';
+import 'package:new_app/view/grocery_details_page.dart';
 import 'package:new_app/widgets/search_bar_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +58,7 @@ class _GridviewPageState extends State<GridviewPage> {
                     context,
                     MaterialPageRoute(
                       builder:
-                          (context) => FruitDetailsPage(
+                          (context) => GroceryDetailsPage(
                             fruit: _groceryProvider.filteredFruitList[index],
                           ),
                     ),
@@ -135,7 +135,7 @@ class _GridviewPageState extends State<GridviewPage> {
                     context,
                     MaterialPageRoute(
                       builder:
-                          (context) => FruitDetailsPage(
+                          (context) => GroceryDetailsPage(
                             vegatable:
                                 _groceryProvider.filteredVegatableList[index],
                           ),
