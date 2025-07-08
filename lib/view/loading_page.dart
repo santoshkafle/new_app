@@ -26,11 +26,11 @@ class _LoadingScreenState extends State<LoadingPage> {
 
     if (isLoggedIn) {
       Future.delayed(Duration(seconds: 2)).then((value) {
-        Navigator.pushNamed(context, "/manNav");
+        Navigator.pushReplacementNamed(context, "/manNav");
       });
     } else {
       Future.delayed(Duration(seconds: 2)).then((value) {
-        Navigator.pushNamed(context, "/login");
+        Navigator.pushReplacementNamed(context, "/login");
       });
     }
   }

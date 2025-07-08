@@ -230,10 +230,13 @@ class ProfilePage extends StatelessWidget {
               SizedBox(height: 25),
               CircleAvatar(radius: 60, child: Icon(Icons.person, size: 80)),
               Text(
-                _userData.userModel!.userName,
+                _userData.userModel?.userName ?? "Invalid Name",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              Text(_userData.userModel!.email, style: TextStyle(fontSize: 14)),
+              Text(
+                _userData.userModel?.email ?? "Invalid Email Addresss",
+                style: TextStyle(fontSize: 14),
+              ),
               //buttons here.....
               _profileButtonsRow(),
               //like & share section here....

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/auth/services/auth_api_services.dart';
 import 'package:new_app/auth/services/local_storages.dart';
 import 'package:new_app/provider/form_provider.dart';
 import 'package:provider/provider.dart';
@@ -61,36 +62,40 @@ class _LoginpageState extends State<Loginpage> {
 
                   //Submit buttons......
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_loginFormKey.currentState?.validate() ?? false) {
-                        if (formProvider.userModel != null) {
-                          if (emailController.text ==
-                                  formProvider.userModel!.email &&
-                              passwordController.text ==
-                                  formProvider.userModel!.password) {
-                            LocalStorages.setUserLoggedIn();
-                            Navigator.pushNamed(context, '/manNav');
+                        final _users = await AuthApiServices.getUsers();
+                        final _user =
+                            _users
+                                .where(
+                                  (e) =>
+                                      e.email == emailController.text &&
+                                      e.password == passwordController.text,
+                                )
+                                .toList();
+                        if (_user.isNotEmpty) {
+                          // LocalStorages.setUserLoggedIn();
+                          Navigator.pushReplacementNamed(context, '/manNav');
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                behavior: SnackBarBehavior.fixed,
-                                content: Text('Login Successful'),
-                                backgroundColor: Colors.green,
-                                duration: Duration(milliseconds: 500),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              behavior: SnackBarBehavior.fixed,
+                              content: Text('Login Successful'),
+                              backgroundColor: Colors.green,
+                              duration: Duration(milliseconds: 500),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              content: Text(
+                                'Your email and password doesnot found!',
                               ),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                content: Text(
-                                  'Your email and password doesnot match',
-                                ),
-                                backgroundColor: Colors.red,
-                                duration: Duration(milliseconds: 500),
-                              ),
-                            );
-                          }
+                              backgroundColor: Colors.red,
+                              duration: Duration(milliseconds: 500),
+                            ),
+                          );
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

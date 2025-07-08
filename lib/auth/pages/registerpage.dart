@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/auth/models/auth_model.dart';
+import 'package:new_app/auth/services/auth_api_services.dart';
 import 'package:new_app/provider/form_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -87,26 +89,34 @@ class _RegisterpageState extends State<Registerpage> {
 
               //Submit buttons......
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_regFormKey.currentState?.validate() ?? false) {
-                    _formProvider
-                        .registerUserData(
-                          userName: userController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                          phoneNumber: phoneController.text,
-                        )
-                        .then((value) {
-                          Navigator.pushNamed(context, '/loadingScreen');
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              behavior: SnackBarBehavior.fixed,
-                              content: Text('Your account is created!'),
-                              backgroundColor: Colors.green,
-                              duration: Duration(milliseconds: 500),
-                            ),
-                          );
-                        });
+                    AuthModel authModel = AuthModel(
+                      fullName: userController.text,
+                      email: emailController.text,
+                      password: passwordController.text,
+                      phoneNo: phoneController.text,
+                    );
+                    AuthApiServices.createUser(authModel);
+                    Navigator.pushReplacementNamed(context, '/loadingScreen');
+                    // _formProvider
+                    //     .registerUserData(
+                    //       userName: userController.text,
+                    //       email: emailController.text,
+                    //       password: passwordController.text,
+                    //       phoneNumber: phoneController.text,
+                    //     )
+                    //     .then((value) {
+                    //       Navigator.pushNamed(context, '/loadingScreen');
+                    //       ScaffoldMessenger.of(context).showSnackBar(
+                    //         const SnackBar(
+                    //           behavior: SnackBarBehavior.fixed,
+                    //           content: Text('Your account is created!'),
+                    //           backgroundColor: Colors.green,
+                    //           duration: Duration(milliseconds: 500),
+                    //         ),
+                    //       );
+                    //     });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
