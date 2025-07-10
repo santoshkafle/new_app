@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:new_app/model/user_model.dart';
+import 'package:new_app/auth/models/auth_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorages {
@@ -8,24 +8,21 @@ class LocalStorages {
   static const String _userLoggedInStatusKey = 'user_logged_in_status_key';
 
   //these two method is used to save and load usermodel data....
-  static Future<void> saveUserData(UserModel userModel) async {
+  static Future<void> saveUserData(AuthModel model) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString(
-      _userDataKey,
-      jsonEncode(userModel.toJson(userModel)),
-    );
+    await prefs.setString(_userDataKey, jsonEncode(model.toJson()));
   }
 
-  static Future<UserModel?> loadUserData() async {
+  static Future<AuthModel?> loadUserData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final data = prefs.getString(_userDataKey);
 
     if (data != null) {
       final decodeData = jsonDecode(data);
-      final userModel = UserModel.fromJson(decodeData);
-      return userModel;
+      final authModel = AuthModel.formJson(decodeData);
+      return authModel;
     } else {
       return null;
     }

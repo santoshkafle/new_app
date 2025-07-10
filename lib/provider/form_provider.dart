@@ -1,39 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/auth/models/auth_model.dart';
+import 'package:new_app/auth/services/auth_api_services.dart';
 import 'package:new_app/auth/services/local_storages.dart';
-import 'package:new_app/model/user_model.dart';
 import 'package:new_app/utils/regex_extension.dart';
 
 class FormProvider with ChangeNotifier {
-  late UserModel? _userModel;
-  UserModel? get userModel => _userModel;
+  late AuthModel? _authModel;
+  AuthModel? get authModel => _authModel;
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   Future<void> registerUserData({
-    required userName,
-    required email,
-    required password,
-    required phoneNumber,
+    required String email,
+    required String userName,
+    required String password,
+    required String phoneNumber,
   }) async {
-    if (userName == null &&
-        email == null &&
-        password == null &&
-        phoneNumber == null)
-      return;
-    _userModel = UserModel(
-      userId: "1",
-      userName: userName,
+    _isLoading = true;
+    notifyListeners();
+
+    AuthModel authModel = AuthModel(
+      fullName: userName,
       email: email,
       password: password,
       phoneNumber: phoneNumber,
     );
-
-    await LocalStorages.saveUserData(_userModel!);
-
+    await AuthApiServices.createUser(authModel);
+    _isLoading = false;
     notifyListeners();
   }
 
+  Future<bool> logInUser({
+    required String email,
+    required String password,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+
+    final _usersList = await AuthApiServices.getUsers();
+    final bool isAuthorized = _usersList.any(
+      (e) => e.email == email && e.password == password,
+    );
+    late final AuthModel _user;
+
+    if (isAuthorized) {
+      _user = _usersList.firstWhere(
+        (e) => e.email == email && e.password == password,
+      );
+      LocalStorages.saveUserData(_user);
+      LocalStorages.setUserLoggedIn();
+
+      //also initilize are while loging to load user data and navigate, so that can be disply on
+      // profile
+      initilizeAuthModel();
+
+      _isLoading = false;
+      notifyListeners();
+
+      return true;
+    } else {
+      _isLoading = false;
+      notifyListeners();
+
+      return false;
+    }
+  }
+
   //this function to check and validate form..... also save and naviagete to homepage....
-  Future<void> initilizeUserModel() async {
-    _userModel = await LocalStorages.loadUserData();
+  Future<void> initilizeAuthModel() async {
+    _authModel = await LocalStorages.loadUserData();
     notifyListeners();
   }
 

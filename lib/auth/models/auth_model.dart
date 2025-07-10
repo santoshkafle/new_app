@@ -3,14 +3,14 @@ class AuthModel {
   final String fullName;
   final String email;
   final String password;
-  final String phoneNo;
+  final String phoneNumber;
 
   AuthModel({
     this.id,
     required this.fullName,
     required this.email,
     required this.password,
-    required this.phoneNo,
+    required this.phoneNumber,
   });
 
   factory AuthModel.formJson(Map<String, dynamic> json) {
@@ -19,7 +19,7 @@ class AuthModel {
       fullName: json["fullName"],
       email: json["email"],
       password: json["password"],
-      phoneNo: json["phoneNo"],
+      phoneNumber: json["phoneNumber"],
     );
   }
 
@@ -29,7 +29,7 @@ class AuthModel {
       "fullName": fullName,
       "email": email,
       "password": password,
-      "phoneNo": phoneNo,
+      "phoneNumber": phoneNumber,
     };
   }
 }

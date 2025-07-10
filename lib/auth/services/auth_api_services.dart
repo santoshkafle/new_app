@@ -19,9 +19,9 @@ class AuthApiServices {
             dataList?.map((e) => AuthModel.formJson(e)).toList() ?? [];
 
         return authModelList;
+      } else {
+        return [];
       }
-
-      return [];
     } catch (e) {
       log("Error ${e.toString()}");
       return [];
@@ -36,14 +36,10 @@ class AuthApiServices {
         body: jsonEncode(authModel.toJson()),
       );
 
-      if (response.statusCode == 200) {
-        log(response.body);
-      }
-
-      log(response.body);
       log(response.statusCode.toString());
+      log(response.body);
     } catch (e) {
-      log("Error ${e.toString()}");
+      throw Exception('Error: ${e.toString()}');
     }
   }
 
@@ -56,10 +52,6 @@ class AuthApiServices {
         headers: header,
         body: jsonEncode(auth.toJson()),
       );
-
-      if (response.statusCode == 200) {
-        log(response.body);
-      }
 
       log(response.body);
       log(response.statusCode.toString());
@@ -74,9 +66,7 @@ class AuthApiServices {
     try {
       final response = await http.delete(headers: header, Uri.parse(newUrl));
 
-      if (response.statusCode == 200) {
-        log(response.body);
-      }
+      log(response.body);
     } catch (e) {
       log("Error ${e.toString()}");
     }

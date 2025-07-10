@@ -16,8 +16,11 @@ class _LoadingScreenState extends State<LoadingPage> {
 
   @override
   void initState() {
-    context.read<FormProvider>().initilizeUserModel();
+    context.read<FormProvider>().initilizeAuthModel();
     checkAuthSatusAndNavigate();
+
+    // final key = dotenv.env['AIRTABLE_TOKEN'];
+    // log(key!);
     super.initState();
   }
 

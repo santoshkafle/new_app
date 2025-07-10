@@ -9,8 +9,10 @@ import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/provider/navigation_provider.dart';
 import 'package:new_app/view/loading_page.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await initEnv();
   runApp(
     MultiProvider(
       providers: [
@@ -25,6 +27,10 @@ void main() {
   );
 }
 //hello
+
+Future<void> initEnv() async {
+  await dotenv.load(fileName: ".env");
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
