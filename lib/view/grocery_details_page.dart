@@ -6,6 +6,7 @@ import 'package:new_app/model/fruitmodel.dart';
 import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/view/child_fruit_details_page.dart';
 import 'package:new_app/view/child_vegatable_details_page.dart';
+import 'package:new_app/view/edit_item_view.dart';
 import 'package:provider/provider.dart';
 
 class GroceryDetailsPage extends StatefulWidget {
@@ -23,11 +24,9 @@ class _FruitDetailsPageState extends State<GroceryDetailsPage> {
 
   void IncreaseQuantity() {
     if (widget.fruit != null) {
-      if (fruitQuantity < widget.fruit!.maxAvailable) {
-        setState(() {
-          fruitQuantity++;
-        });
-      }
+      setState(() {
+        fruitQuantity++;
+      });
     } else {
       if (fruitQuantity < widget.vegatable!.maxAvailable) {
         setState(() {
@@ -53,10 +52,10 @@ class _FruitDetailsPageState extends State<GroceryDetailsPage> {
       if (widget.fruit != null) {
         context.read<CartProvider>().addCartItems(
           CartdetailsModel(
-            fruitUnit: widget.fruit!.fruitUnit,
+            fruitUnit: "Kg",
             name: widget.fruit!.name,
             imageUrl: widget.fruit!.imageUrl,
-            totalPrice: widget.fruit!.price,
+            totalPrice: int.parse(widget.fruit!.price),
             quantity: fruitQuantity,
           ),
         );
@@ -86,7 +85,55 @@ class _FruitDetailsPageState extends State<GroceryDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text("Fruit Details"))),
+      appBar: AppBar(
+        title: Text("Details:"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => EditItemView(fruit: widget.fruit!),
+              );
+            },
+            icon: Icon(Icons.edit, color: Colors.blue),
+          ),
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Delete Fruit'),
+                    content: Text('Do you really want to delete this fruit?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<GroceryListProvider>().deleteFruit(
+                            widget.fruit!,
+                          );
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.delete, color: Colors.red),
+          ),
+        ],
+      ),
       backgroundColor: Colors.grey[200],
       body:
           (context.read<GroceryListProvider>().groceryListState ==

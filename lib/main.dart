@@ -26,7 +26,6 @@ void main() async {
     ),
   );
 }
-//hello
 
 Future<void> initEnv() async {
   await dotenv.load(fileName: ".env");

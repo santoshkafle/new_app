@@ -5,7 +5,7 @@ import 'package:new_app/auth/services/local_storages.dart';
 import 'package:new_app/utils/regex_extension.dart';
 
 class FormProvider with ChangeNotifier {
-  late AuthModel? _authModel;
+  AuthModel? _authModel;
   AuthModel? get authModel => _authModel;
 
   bool _isLoading = false;

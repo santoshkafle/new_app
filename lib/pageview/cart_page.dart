@@ -57,7 +57,7 @@ class _CartPageState extends State<CartPage> {
                               fontFamily: "NotoSans",
                             ),
                           ),
-                          leading: Image.asset(
+                          leading: Image.network(
                             cProCtx
                                 .watch<CartProvider>()
                                 .cartDetailsModel[index]
@@ -78,8 +78,7 @@ class _CartPageState extends State<CartPage> {
                                     cProCtx
                                         .watch<CartProvider>()
                                         .cartDetailsModel[index]
-                                        .fruitUnit
-                                        .toString(),
+                                        .fruitUnit,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w300,

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/provider/navigation_provider.dart';
-import 'package:new_app/utils/fruit_list.dart';
 import 'package:new_app/utils/vegatable_list.dart';
 import 'package:new_app/view/grocery_details_page.dart';
 import 'package:provider/provider.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
   Widget bannerView() {
     return Expanded(
       child: Container(
@@ -137,12 +141,13 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget fruitList() {
+  Widget fruitList(BuildContext context) {
     return SizedBox(
       height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: FruitList.fruitList.length,
+        itemCount:
+            context.watch<GroceryListProvider>().filteredFruitList.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return Container(
@@ -164,7 +169,10 @@ class Homepage extends StatelessWidget {
                   MaterialPageRoute(
                     builder:
                         (context) => GroceryDetailsPage(
-                          fruit: FruitList.fruitList[index],
+                          fruit:
+                              context
+                                  .watch<GroceryListProvider>()
+                                  .filteredFruitList[index],
                         ),
                   ),
                 );
@@ -173,13 +181,23 @@ class Homepage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(
-                    FruitList.fruitList[index].imageUrl,
+                  Image.network(
+                    context
+                        .watch<GroceryListProvider>()
+                        .filteredFruitList[index]
+                        .imageUrl,
                     height: 50,
                     width: 50,
                   ),
-                  Text(FruitList.fruitList[index].name),
-                  Text("Rs: ${FruitList.fruitList[index].price}"),
+                  Text(
+                    context
+                        .watch<GroceryListProvider>()
+                        .filteredFruitList[index]
+                        .name,
+                  ),
+                  Text(
+                    "Rs: ${context.watch<GroceryListProvider>().filteredFruitList[index].price}",
+                  ),
                 ],
               ),
             ),
@@ -248,20 +266,26 @@ class Homepage extends StatelessWidget {
         title: Text("eGrocery", style: TextStyle(fontSize: 20)),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          spacing: 12,
-          children: [
-            bannerView(),
-            fruitListHeader(context),
-            fruitList(),
-            vegatableListHeader(context),
-            vegatableList(),
-          ],
-        ),
-      ),
+      body:
+          context.watch<GroceryListProvider>().isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 20,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  spacing: 12,
+                  children: [
+                    bannerView(),
+                    fruitListHeader(context),
+                    fruitList(context),
+                    vegatableListHeader(context),
+                    vegatableList(),
+                  ],
+                ),
+              ),
     );
   }
 }

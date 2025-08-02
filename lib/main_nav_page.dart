@@ -3,6 +3,7 @@ import 'package:new_app/pageview/cart_page.dart';
 import 'package:new_app/pageview/gridview_page.dart';
 import 'package:new_app/pageview/homepage.dart';
 import 'package:new_app/pageview/profile_page.dart';
+import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/provider/navigation_provider.dart';
 import 'package:provider/provider.dart';
 

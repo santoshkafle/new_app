@@ -14,6 +14,7 @@ class AuthModel {
   });
 
   factory AuthModel.formJson(Map<String, dynamic> json) {
+    print(json);
     return AuthModel(
       id: json["id"],
       fullName: json["fullName"],

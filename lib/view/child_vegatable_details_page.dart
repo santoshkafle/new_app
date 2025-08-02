@@ -71,12 +71,12 @@ class ChildVegatableDetailsPage extends StatelessWidget {
                                     ? Icon(
                                       Icons.favorite,
                                       size: 26,
-                                      color: Colors.red,
+                                      color: Colors.green,
                                     )
                                     : Icon(
                                       Icons.favorite_outline,
                                       size: 26,
-                                      color: Colors.red,
+                                      color: Colors.green,
                                     ),
                           ),
                         ],

@@ -32,7 +32,7 @@ class ChildFruitDetailsPage extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                Image.asset(
+                Image.network(
                   fruitmodel.imageUrl,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.4,
@@ -51,7 +51,7 @@ class ChildFruitDetailsPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Rs. ${fruitmodel.price} /${fruitmodel.fruitUnit}",
+                            "Rs. ${fruitmodel.price} /Kg", //${fruitmodel.fruitUnit}",
                             style: TextStyle(
                               fontSize: 27,
                               fontWeight: FontWeight.bold,
@@ -71,12 +71,12 @@ class ChildFruitDetailsPage extends StatelessWidget {
                                     ? Icon(
                                       Icons.favorite,
                                       size: 26,
-                                      color: Colors.red,
+                                      color: Colors.green,
                                     )
                                     : Icon(
                                       Icons.favorite_outline,
                                       size: 26,
-                                      color: Colors.red,
+                                      color: Colors.green,
                                     ),
                           ),
                         ],
@@ -98,7 +98,7 @@ class ChildFruitDetailsPage extends StatelessWidget {
                             style: TextStyle(color: Colors.grey, fontSize: 20),
                           ),
                           RatingBarIndicator(
-                            rating: fruitmodel.rating,
+                            rating: double.parse(fruitmodel.rating.toString()),
                             itemCount: 5,
                             itemSize: 30,
                             itemBuilder:
@@ -133,7 +133,7 @@ class ChildFruitDetailsPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: WhiteButton(
-                      buttonText: "Quantity (${fruitmodel.fruitUnit})",
+                      buttonText: "Quantity", // (${fruitmodel.fruitUnit})",
                       textStyle: TextStyle(color: Colors.grey, fontSize: 14),
                       isSmall: false,
                     ),
@@ -152,10 +152,7 @@ class ChildFruitDetailsPage extends StatelessWidget {
                   WhiteButton(
                     buttonText: fruitQuinty.toString(),
                     textStyle: TextStyle(
-                      color:
-                          (fruitQuinty == fruitmodel.maxAvailable)
-                              ? Colors.red
-                              : Colors.grey,
+                      color: Colors.grey,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),

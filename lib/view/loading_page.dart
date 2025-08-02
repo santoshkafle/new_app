@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:new_app/auth/services/local_Storages.dart';
 import 'package:new_app/provider/form_provider.dart';
+import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoadingPage extends StatefulWidget {
@@ -12,22 +14,23 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingPage> {
-  late Future<bool> isDataLoaded;
-
   @override
   void initState() {
-    context.read<FormProvider>().initilizeAuthModel();
     checkAuthSatusAndNavigate();
 
-    // final key = dotenv.env['AIRTABLE_TOKEN'];
-    // log(key!);
     super.initState();
   }
 
   void checkAuthSatusAndNavigate() async {
+    await context.read<FormProvider>().initilizeAuthModel();
     final isLoggedIn = await LocalStorages.getUserLoggedStatus();
 
+    if (!context.mounted) return;
+
+    log(isLoggedIn.toString());
+
     if (isLoggedIn) {
+      await context.read<GroceryListProvider>().initilizeGroceryList();
       Future.delayed(Duration(seconds: 2)).then((value) {
         Navigator.pushReplacementNamed(context, "/manNav");
       });
