@@ -1,19 +1,47 @@
 class VegatableModel {
+  final String? id;
+  final DateTime? createdTime;
   final String name;
-  final int price;
+  final String price;
   final String imageUrl;
-  final double rating;
-  final String description;
-  final String vegUnit;
-  final int maxAvailable;
 
   VegatableModel({
+    this.id,
+    this.createdTime,
     required this.name,
     required this.price,
     required this.imageUrl,
-    required this.rating,
-    required this.vegUnit,
-    required this.maxAvailable,
-    required this.description,
   });
+
+  factory VegatableModel.formJson(Map<String, dynamic> json) {
+    final fields = json["fields"];
+    return VegatableModel(
+      id: json["id"],
+      createdTime:
+          json["createdTime"] != null
+              ? DateTime.parse(json["createdTime"])
+              : null,
+      name: fields["Name"],
+      price: fields["price"],
+      imageUrl: fields["imgLink"][0]["url"],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "fields": {
+        "Name": name,
+        "price": price,
+        "imgLink": [
+          {"url": imageUrl},
+        ],
+      },
+    };
+  }
+
+  Map<String, dynamic> toJsonUpdate() {
+    return {
+      "fields": {"Name": name, "price": price},
+    };
+  }
 }

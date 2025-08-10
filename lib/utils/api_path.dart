@@ -5,4 +5,5 @@ class ApiPath {
 
   static const airTableUrl = "https://api.airtable.com/v0/appv44lWnH5sPBsmv";
   static const fruitAuth = "FruitsTable";
+  static const vegatableAuth = "VegatableTable";
 }

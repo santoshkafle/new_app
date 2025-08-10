@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:new_app/model/vegatable_model.dart';
 import 'package:new_app/provider/cart_provider.dart';
@@ -28,7 +30,7 @@ class _FruitDetailsPageState extends State<GroceryDetailsPage> {
         fruitQuantity++;
       });
     } else {
-      if (fruitQuantity < widget.vegatable!.maxAvailable) {
+      if (widget.vegatable != null) {
         setState(() {
           fruitQuantity++;
         });
@@ -62,10 +64,10 @@ class _FruitDetailsPageState extends State<GroceryDetailsPage> {
       } else {
         context.read<CartProvider>().addCartItems(
           CartdetailsModel(
-            fruitUnit: widget.vegatable!.vegUnit,
+            fruitUnit: "Kg",
             name: widget.vegatable!.name,
             imageUrl: widget.vegatable!.imageUrl,
-            totalPrice: widget.vegatable!.price,
+            totalPrice: int.parse(widget.vegatable!.price),
             quantity: fruitQuantity,
           ),
         );
@@ -147,7 +149,7 @@ class _FruitDetailsPageState extends State<GroceryDetailsPage> {
               )
               : ChildVegatableDetailsPage(
                 vegatableModel: widget.vegatable!,
-                fruitQuinty: fruitQuantity,
+                vegQuinty: fruitQuantity,
                 decreaseCallback: () => DecreaseQuantity(),
                 incraseCallback: () => IncreaseQuantity(),
                 addToCardCallback: () => AddToCart(),

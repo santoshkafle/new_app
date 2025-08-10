@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/api_serveces/fruit_api_servece.dart';
+import 'package:new_app/api_serveces/vegatable_api_service.dart';
 import 'package:new_app/model/fruitmodel.dart';
 import 'package:new_app/model/vegatable_model.dart';
-import 'package:new_app/utils/vegatable_list.dart';
 
 class GroceryListProvider with ChangeNotifier {
   List<Fruitmodel> _filteredFruitList = [];
@@ -20,12 +20,13 @@ class GroceryListProvider with ChangeNotifier {
     notifyListeners();
 
     _filteredFruitList = await FruitApiServece.getFruits();
-    _filteredVegatableList = VegatableList.vegatableList;
+    _filteredVegatableList = await VegatableApiService.getVegataleList();
 
     _isLoading = false;
     notifyListeners();
   }
 
+  //furit section here -------------(1)
   void addFruitDetails(Fruitmodel fruitModel) async {
     _isLoading = false;
     notifyListeners();
@@ -49,6 +50,33 @@ class GroceryListProvider with ChangeNotifier {
     await FruitApiServece.deleteFruits(fruitmodel);
     initilizeGroceryList();
   }
+  //section End -------------(1)
+
+  //Vegatable section here -------------(1)
+  void addVegatableDetails(VegatableModel vegModel) async {
+    _isLoading = false;
+    notifyListeners();
+
+    await VegatableApiService.addVegatable(vegModel);
+    initilizeGroceryList();
+  }
+
+  void updateVegatableDetails(VegatableModel vegmodel) async {
+    _isLoading = true;
+    notifyListeners();
+
+    await VegatableApiService.updateVegatable(vegmodel);
+    initilizeGroceryList();
+  }
+
+  void deleteVegatable(VegatableModel vegModel) async {
+    _isLoading = true;
+    notifyListeners();
+
+    await VegatableApiService.deleteVegatale(vegModel);
+    initilizeGroceryList();
+  }
+  //section End -------------(2)
 
   void swithGroceryListState(GroceryListState listState) {
     _groceryListState = listState;
@@ -61,8 +89,7 @@ class GroceryListProvider with ChangeNotifier {
     if (groceryListState == GroceryListState.fruit) {
       //search on fruit list...
       if (itemToSearch == "") {
-        _filteredFruitList = _fruitList;
-        notifyListeners();
+        initilizeGroceryList();
       } else {
         _filteredFruitList =
             _fruitList
@@ -79,8 +106,7 @@ class GroceryListProvider with ChangeNotifier {
     } else {
       //search on vegetable list....
       if (itemToSearch == "") {
-        _filteredVegatableList = _vegatableList;
-        notifyListeners();
+        initilizeGroceryList();
       } else {
         _filteredVegatableList =
             _vegatableList

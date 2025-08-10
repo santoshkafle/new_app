@@ -8,14 +8,14 @@ import 'package:provider/provider.dart';
 
 class ChildVegatableDetailsPage extends StatelessWidget {
   VegatableModel vegatableModel;
-  int fruitQuinty;
+  int vegQuinty;
   VoidCallback decreaseCallback;
   VoidCallback incraseCallback;
   VoidCallback addToCardCallback;
   ChildVegatableDetailsPage({
     super.key,
     required this.vegatableModel,
-    required this.fruitQuinty,
+    required this.vegQuinty,
     required this.decreaseCallback,
     required this.incraseCallback,
     required this.addToCardCallback,
@@ -51,7 +51,7 @@ class ChildVegatableDetailsPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Rs. ${vegatableModel.price} /${vegatableModel.vegUnit}",
+                            "Rs. ${vegatableModel.price} /Kg",
                             style: TextStyle(
                               fontSize: 27,
                               fontWeight: FontWeight.bold,
@@ -94,11 +94,12 @@ class ChildVegatableDetailsPage extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            vegatableModel.rating.toString(),
+                            "4",
+                            // vegatableModel.rating.toString(),
                             style: TextStyle(color: Colors.grey, fontSize: 20),
                           ),
                           RatingBarIndicator(
-                            rating: vegatableModel.rating,
+                            rating: 4,
                             itemCount: 5,
                             itemSize: 30,
                             itemBuilder:
@@ -112,7 +113,7 @@ class ChildVegatableDetailsPage extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        vegatableModel.description,
+                        "describestion is not yet ready, check back later,",
                         style: TextStyle(fontSize: 20, color: Colors.grey[400]),
                       ),
                     ],
@@ -133,7 +134,7 @@ class ChildVegatableDetailsPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: WhiteButton(
-                      buttonText: "Quantity (${vegatableModel.vegUnit})",
+                      buttonText: "Quantity (Kg)",
                       textStyle: TextStyle(color: Colors.grey, fontSize: 14),
                       isSmall: false,
                     ),
@@ -150,12 +151,9 @@ class ChildVegatableDetailsPage extends StatelessWidget {
                     ),
                   ),
                   WhiteButton(
-                    buttonText: fruitQuinty.toString(),
+                    buttonText: vegQuinty.toString(),
                     textStyle: TextStyle(
-                      color:
-                          (fruitQuinty == vegatableModel.maxAvailable)
-                              ? Colors.red
-                              : Colors.grey,
+                      color: Colors.grey,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),

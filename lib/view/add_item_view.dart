@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:new_app/api_serveces/fruit_api_servece.dart';
+import 'package:new_app/api_serveces/add_image_services.dart';
 import 'package:new_app/model/fruitmodel.dart';
 import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:provider/provider.dart';
@@ -166,7 +165,7 @@ class _AddItemView extends State<AddItemView> {
           onPressed: () async {
             if (fruitFormKey.currentState?.validate() ?? false) {
               if (pickedImage != null) {
-                final url = await FruitApiServece.uploadFruitImage(
+                final url = await AddImageServices.uploadFruitImage(
                   pickedImage!,
                 );
 

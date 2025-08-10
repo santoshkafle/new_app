@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_app/provider/grocery_list_provider.dart';
 import 'package:new_app/provider/navigation_provider.dart';
-import 'package:new_app/utils/vegatable_list.dart';
 import 'package:new_app/view/grocery_details_page.dart';
 import 'package:provider/provider.dart';
 
@@ -212,7 +211,8 @@ class _HomepageState extends State<Homepage> {
       height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: VegatableList.vegatableList.length,
+        itemCount:
+            context.watch<GroceryListProvider>().filteredVegatableList.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return Container(
@@ -234,7 +234,10 @@ class _HomepageState extends State<Homepage> {
                   MaterialPageRoute(
                     builder:
                         (context) => GroceryDetailsPage(
-                          vegatable: VegatableList.vegatableList[index],
+                          vegatable:
+                              context
+                                  .watch<GroceryListProvider>()
+                                  .filteredVegatableList[index],
                         ),
                   ),
                 );
@@ -244,12 +247,22 @@ class _HomepageState extends State<Homepage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    VegatableList.vegatableList[index].imageUrl,
+                    context
+                        .watch<GroceryListProvider>()
+                        .filteredVegatableList[index]
+                        .imageUrl,
                     height: 50,
                     width: 50,
                   ),
-                  Text(VegatableList.vegatableList[index].name),
-                  Text("Rs: ${VegatableList.vegatableList[index].price}"),
+                  Text(
+                    context
+                        .watch<GroceryListProvider>()
+                        .filteredVegatableList[index]
+                        .name,
+                  ),
+                  Text(
+                    "Rs: ${context.watch<GroceryListProvider>().filteredVegatableList[index].price}",
+                  ),
                 ],
               ),
             ),
